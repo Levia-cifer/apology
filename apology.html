@@ -1,0 +1,202 @@
+<!-- /apology-site/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>I'm Sorry ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  background: linear-gradient(to top, #87ceeb, #fff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: background 1s ease;
+}
+
+.container {
+  text-align: center;
+  max-width: 90%;
+}
+
+.bear {
+  font-size: 90px;
+  animation: bounce 2s infinite;
+}
+
+.message {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: none;
+}
+
+button {
+  padding: 12px 18px;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+}
+
+.yes { background: #4CAF50; color: white; }
+.no { background: #f44336; color: white; }
+
+.essay {
+  display: none;
+  font-size: 16px;
+  margin-top: 20px;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+.sparkles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  font-size: 20px;
+  animation: sparkle 2s linear infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes sparkle {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-200px); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div id="bear" class="bear">🐻</div>
+  <div id="message" class="message">Please forgive me my love ❤️</div>
+
+  <div id="buttons" class="buttons">
+    <button class="yes" onclick="yesClicked()">Yes 💖</button>
+    <button id="noBtn" class="no">No 😢</button>
+  </div>
+
+  <div id="essay" class="essay"></div>
+</div>
+
+<div id="sparkles" class="sparkles"></div>
+
+<script>
+let noCount = 0;
+const noBtn = document.getElementById("noBtn");
+
+setTimeout(() => {
+  document.getElementById("buttons").style.display = "block";
+}, 2500);
+
+function getRandomPosition(btn) {
+  const padding = 20;
+  const maxX = window.innerWidth - btn.offsetWidth - padding;
+  const maxY = window.innerHeight - btn.offsetHeight - padding;
+
+  return {
+    x: Math.random() * maxX,
+    y: Math.random() * maxY
+  };
+}
+
+function moveNoButton() {
+  const pos = getRandomPosition(noBtn);
+  noBtn.style.position = "fixed";
+  noBtn.style.left = pos.x + "px";
+  noBtn.style.top = pos.y + "px";
+}
+
+function noClicked() {
+  noCount++;
+
+  const msg = document.getElementById("message");
+
+  const responses = [
+    "Please... I'll do anything 🥺",
+    "Don't break my heart 💔",
+    "I'm really really sorry 😭",
+    "You can't catch me 😜"
+  ];
+
+  msg.innerText = responses[Math.min(noCount - 1, responses.length - 1)];
+
+  moveNoButton();
+}
+
+// attach events (important for mobile)
+noBtn.addEventListener("click", noClicked);
+noBtn.addEventListener("mouseover", moveNoButton);
+noBtn.addEventListener("touchstart", moveNoButton);
+
+function yesClicked() {
+  document.getElementById("buttons").style.display = "none";
+
+  document.body.style.background = "linear-gradient(to top, #ff9a9e, #fad0c4)";
+  document.getElementById("bear").innerText = "🐻💖";
+  document.getElementById("message").innerText = "Thank you for giving me another chance 🥺❤️";
+
+  const essay = document.getElementById("essay");
+
+  essay.style.display = "block";
+  essay.innerText = `
+Dear Angel,
+
+I want to start by saying how deeply sorry I am.
+
+I know I didn’t listen the way I should have. I know there were moments where you needed me to be present, to understand you, and I failed you. And for that, I’m truly sorry.
+
+It hurts me knowing that my actions made you cry. You never deserved that, not even for a second. You deserve patience, attention, and someone who truly values every word you say and I regret not being that person when it mattered most.
+
+I realize now that I took your feelings for granted, and that’s something I never want to do again. You mean so much to me, more than I’ve been showing, and I’m sorry for neglecting you.
+
+I promise to be better. To listen. To care more. To love you the way you deserve.
+
+Please forgive me. ❤️
+`;
+
+  createSparkles();
+}
+
+function createSparkles() {
+  const container = document.getElementById("sparkles");
+
+  for (let i = 0; i < 40; i++) {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.innerText = "✨";
+
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = Math.random() * 100 + "%";
+
+    container.appendChild(s);
+  }
+}
+</script>
+
+</body>
+</html>
